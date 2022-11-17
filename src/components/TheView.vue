@@ -23,32 +23,56 @@ export default {
 	components: { AppCard },
 	setup() {
 		const post = reactive({
-			title: '제목2',
-			constents: '내용2',
+			title: 'title2',
+			constents: 'contents2',
 		});
 		// <div class="col-4">
 		//   <AppCard v-bind:title="post.title" :contents="post.constents" />
 		// </div>
 
 		const lists = reactive([
-			{ id: 1, title: '제목1', contents: '내용1', type: 'news', isLike: true },
+			{
+				id: 1,
+				title: 'title1',
+				contents: 'contents1',
+				type: 'news',
+				isLike: true,
+			},
 			{
 				id: 2,
-				title: '제목2',
-				contents: '내용2',
+				title: 'title2',
+				contents: 'contents2',
 				type: 'notice',
 				isLike: true,
 			},
-			{ id: 3, title: '제목3', contents: '내용3', type: 'news', isLike: false },
-			{ id: 4, title: '제목4', contents: '내용4', type: 'news', isLike: true },
+			{
+				id: 3,
+				title: 'title3',
+				contents: 'contents3',
+				type: 'news',
+				isLike: false,
+			},
+			{
+				id: 4,
+				title: 'title4',
+				contents: 'contents4',
+				type: 'news',
+				isLike: true,
+			},
 			{
 				id: 5,
-				title: '제목5',
-				contents: '내용5',
+				title: 'title5',
+				contents: 'contents5',
 				type: 'notice',
 				isLike: false,
 			},
-			{ id: 6, title: '제목6', contents: '내용6', type: 'news', isLike: true },
+			{
+				id: 6,
+				title: 'title6',
+				contents: 'contents6',
+				type: 'news',
+				isLike: true,
+			},
 		]);
 		return { post, lists };
 	},
