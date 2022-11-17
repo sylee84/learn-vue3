@@ -3,14 +3,12 @@
 		<div class="card-body">
 			<!-- {{ $props }} -->
 			<!-- type: news, notice -->
-			<span class="badge bg-secondary">{{ BadgeType }}</span>
+			<span class="badge bg-secondary">{{ typeBadge }}</span>
 			<h5 class="card-titl mt-2">{{ title }}</h5>
 			<p class="card-text">{{ contents }}</p>
 			<!-- <a v-if="isLike" href="#" class="btn btn-danger">좋아요</a>
 			<a v-else href="#" class="btn btn-outline-danger">좋아요</a> -->
-			<a href="#" class="btn" :class="isLikeClass" @click="toggleLike"
-				>좋아요</a
-			>
+			<a href="#" class="btn" :class="isLikeClass" @click="toggleLike">like</a>
 		</div>
 	</div>
 </template>
@@ -51,14 +49,14 @@ export default {
 		const isLikeClass = computed(() =>
 			props.isLike ? 'btn-danger' : 'btn-outline-danger',
 		);
-		const BadgeType = computed(() =>
+		const typeBadge = computed(() =>
 			props.type === 'news' ? 'news' : 'notice',
 		);
 		const toggleLike = () => {
 			// props.isLike === !props.isLike;
 			context.emit('toggleLike');
 		};
-		return { isLikeClass, BadgeType, toggleLike };
+		return { isLikeClass, typeBadge, toggleLike };
 	},
 };
 </script>
