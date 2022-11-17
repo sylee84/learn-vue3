@@ -41,7 +41,7 @@ export default {
 			{
 				id: 2,
 				title: 'title2',
-				contents: 'contents2',
+				contents: 'contents2222',
 				type: 'notice',
 				isLike: true,
 			},
