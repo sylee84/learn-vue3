@@ -52,7 +52,7 @@ export default {
 			props.isLike ? 'btn-danger' : 'btn-outline-danger',
 		);
 		const BadgeType = computed(() =>
-			props.type === 'news' ? '뉴스' : '공지사항',
+			props.type === 'news' ? 'news' : 'notice',
 		);
 		const toggleLike = () => {
 			// props.isLike === !props.isLike;
