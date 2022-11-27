@@ -1,88 +1,28 @@
 <template>
 	<div class="card">
-		<div class="card-body">
-			<!-- {{ $props }} -->
-			<!-- type: news, notice -->
-			<span class="badge bg-secondary">{{ typeBadge }}</span>
-			<h5 class="card-titl mt-2">{{ title }}</h5>
-			<p class="card-text">{{ contents }}</p>
-			<!-- <a v-if="isLike" href="#" class="btn btn-danger">좋아요</a>
-			<a v-else href="#" class="btn btn-outline-danger">좋아요</a> -->
-			<a href="#" class="btn" :class="isLikeClass" @click="toggleLike">like</a>
+		<div v-if="$slots.header" class="card-header">
+			<slot name="header" headerMessage="헤더 입니다!">#header</slot>
+		</div>
+		<div v-if="$slots.default" class="card-body">
+			<slot :childMessage="childMessage" helloMessage="안뇽하세요!!"
+				>#body</slot
+			>
+		</div>
+		<div v-if="hasFooter" class="card-footer text-muted">
+			<slot name="footer" footerMessage="푸터 입니다!">#footer</slot>
 		</div>
 	</div>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 export default {
-	props: {
-		type: {
-			type: String,
-			default: 'news',
-			validator: value => {
-				return ['news', 'notice'].includes(value);
-			},
-		},
-		title: {
-			type: String,
-			required: true,
-		},
-		contents: {
-			type: String,
-			requird: true,
-		},
-		isLike: {
-			type: Boolean,
-			default: false,
-		},
-		obj: {
-			type: Object,
-			default: () => {
-				return {};
-			},
-		},
-	},
-	emits: ['toggleLike'],
-	setup(props, context) {
-		// console.log(props);
-		const isLikeClass = computed(() =>
-			props.isLike ? 'btn-danger' : 'btn-outline-danger',
-		);
-		const typeBadge = computed(() =>
-			props.type === 'news' ? 'news' : 'notice',
-		);
-		const toggleLike = () => {
-			// props.isLike === !props.isLike;
-			context.emit('toggleLike');
-		};
-		return { isLikeClass, typeBadge, toggleLike };
+	setup(props, { slots }) {
+		const childMessage = ref('자식 메시지');
+		const hasFooter = computed(() => !!slots.footer);
+		return { childMessage, hasFooter };
 	},
 };
 </script>
 
-<style></style>
-
-<!--
-const color = ref('red');
-color.value = 'blue';
-return { color };
-<style scoped>
-.red {
-	color: v-bind('color');
-}
-</style>
--->
-<!--
-const style = useCssModule();
-
-<style module></style>
-<p class="card-text" :class="$style.blue"></p>
-  
-<style module="classes">
-.blue {
-	color: blue;
-}
-</style>
-<p class="card-text" :class="classes.blue"></p>
--->
+<style lang="scss" scoped></style>

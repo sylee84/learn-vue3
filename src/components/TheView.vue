@@ -1,80 +1,70 @@
 <template>
 	<main>
 		<div class="container py-4">
-			<div class="row g-3">
-				<div class="col-4" v-for="list in lists" :key="list.id">
-					<AppCard
-						:title="list.title"
-						:contents="list.contents"
-						:type="list.type"
-						:is-like="list.isLike"
-						@toggle-like="list.isLike = !list.isLike"
-					/>
-				</div>
-			</div>
+			<!-- <MyButton @click="sayHello" class="my-button" id="my-button"></MyButton> -->
+			<MyButton
+				class="my-button"
+				id="my-button"
+				@sayHello="sayHello"
+			></MyButton>
+			<LabelInput label="이름"></LabelInput>
+
+			<hr class="my-4" />
+
+			<FancyButton>click!! <span style="color: red">!!!</span> </FancyButton>
+			<FancyButton #="{ fancyMessage }">{{ fancyMessage }}</FancyButton>
+			<FancyButton v-slot="{ fancyMessage }">{{ fancyMessage }}</FancyButton>
+			<FancyButton>
+				<template #default="{ fancyMessage }">{{ fancyMessage }}</template>
+			</FancyButton>
+
+			<hr class="my-4" />
+
+			<AppCard>
+				<template v-slot:[slotArgs]="{ headerMessage }"
+					>제목 입니다.{{ headerMessage }}</template
+				>
+				<!-- <template #default>내용 입니다.</template> -->
+				<!-- default 내용 입니다. -->
+				<!-- <template v-slot:default="obj"> 
+					{{ obj }}{{ message }} {{ obj.childMessage }}
+					-->
+				<template v-slot:default="{ childMessage, helloMessage }">
+					{{ message }} {{ childMessage }} {{ helloMessage }}
+				</template>
+				<template v-slot:footer="{ footerMessage }"
+					>푸터 입니다.{{ footerMessage }}</template
+				>
+			</AppCard>
+
+			<hr class="my-4" />
+
+			<AppCard> 게시글 입니다. </AppCard>
 		</div>
 	</main>
 </template>
 
 <script>
+import MyButton from '@/components/MyButton.vue';
+import LabelInput from '@/components/LabelInput.vue';
+import FancyButton from '@/components/FancyButton.vue';
 import AppCard from '@/components/AppCard.vue';
-import { reactive } from 'vue';
-export default {
-	components: { AppCard },
-	setup() {
-		const post = reactive({
-			title: 'title2',
-			constents: 'contents2',
-		});
-		// <div class="col-4">
-		//   <AppCard v-bind:title="post.title" :contents="post.constents" />
-		// </div>
+import { ref } from 'vue';
 
-		const lists = reactive([
-			{
-				id: 1,
-				title: 'title1',
-				contents: 'contents1',
-				type: 'news',
-				isLike: true,
-			},
-			{
-				id: 2,
-				title: 'title2',
-				contents: 'contents2222',
-				type: 'notice',
-				isLike: true,
-			},
-			{
-				id: 3,
-				title: 'title3',
-				contents: 'contents3',
-				type: 'news',
-				isLike: false,
-			},
-			{
-				id: 4,
-				title: 'title4',
-				contents: 'contents4',
-				type: 'news',
-				isLike: true,
-			},
-			{
-				id: 5,
-				title: 'title5',
-				contents: 'contents5',
-				type: 'notice',
-				isLike: false,
-			},
-			{
-				id: 6,
-				title: 'title6',
-				contents: 'contents6',
-				type: 'news',
-				isLike: true,
-			},
-		]);
-		return { post, lists };
+export default {
+	components: {
+		MyButton,
+		LabelInput,
+		FancyButton,
+		AppCard,
+	},
+	setup() {
+		const sayHello = () => {
+			alert('안녕하세요.');
+		};
+		const slotArgs = ref('header');
+		const message = ref('안녕하세요!!!');
+		return { sayHello, slotArgs, message };
 	},
 };
 </script>
