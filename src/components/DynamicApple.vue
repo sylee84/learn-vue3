@@ -1,14 +1,12 @@
 <template>
-	<main>
-		<DynamicComponent />
-	</main>
+	<AppCard> 사과 </AppCard>
 </template>
 
 <script>
-import DynamicComponent from '@/components/DynamicComponent.vue';
+import AppCard from '@/components/AppCard.vue';
 export default {
 	components: {
-		DynamicComponent,
+		AppCard,
 	},
 	setup() {
 		return {};
